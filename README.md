@@ -27,12 +27,20 @@ This feature demonstrates OOP principles through **inheritance**, **polymorphism
 ## 🧱 Architecture Overview
 The project follows a **3-Layered Architecture** for clean separation of concerns:
 ```
-lib/
-├── domain/ → Core business logic (classes & models)
-├── data/ → Handles data storage & CRUD operations
-└── ui/ → User interface (console-based menu)
+Hospital-Management-System/
+|── lib/
+|   ├── domain/
+|   │    ├── staff.dart
+|   │    ├── doctor.dart
+|   │    ├── nurse.dart
+|   │    └── admin_staff.dart
+|   ├── data/
+|   │    └── staff_repository.dart
+|   └── ui/
+|         └── main_console.dart
+└── test/
+    └── staff_test.dart
 
-test/ → Unit tests for domain layer
 ```
 
 ### 🔹 Layer Descriptions
