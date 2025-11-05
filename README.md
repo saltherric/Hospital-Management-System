@@ -70,13 +70,6 @@ Hospital-Management-System/
 
 ---
 
-## ⚙️ How to Run the Project
-1. Clone or download the project folder.  
-2. Open the project in VS Code or any Dart-supported IDE.  
-3. Run the following command to start the console program:
-   ```bash
-   dart run lib/ui/main_console.dart
-
 ## 👥 Contributors
 
 - **Kong Visal**
