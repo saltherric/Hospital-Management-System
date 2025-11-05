@@ -28,6 +28,10 @@ This feature demonstrates OOP principles through **inheritance**, **polymorphism
 The project follows a **3-Layered Architecture** for clean separation of concerns:
 ```
 Hospital-Management-System/
+|── Data/
+|   ├── admin.json
+|   ├── doctor.json
+|   ├── nurse.json
 |── lib/
 |   ├── domain/
 |   │    ├── staff.dart
