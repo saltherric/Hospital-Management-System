@@ -5,7 +5,7 @@ class AdminStaff extends Staff {
   final String officeNumber;
 
   AdminStaff(
-    int id,
+    String id,
     String name,
     Sex sex,
     DateTime dob,

@@ -5,7 +5,7 @@ class Nurse extends Staff {
   final String assignedWard;
 
   Nurse(
-    int id,
+    String id,
     String name,
     Sex sex,
     DateTime dob,

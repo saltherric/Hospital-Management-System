@@ -1,59 +1,41 @@
-import 'staff.dart';
+enum Sex { Male, Female }
+enum Position { Doctor, Nurse, AdminStaff }
+enum Role { HROfficer, Accountant, ITManager }
 
-class AdminStaff extends Staff {
-  final Role role;
-  final String officeNumber;
+abstract class Staff {
+  final String _id;
+  final String _name;
+  final Sex _sex;
+  final DateTime _dob;
+  final Position _position;
+  final String _department;
+  double _salary;
 
-  AdminStaff(
-    int id,
-    String name,
-    Sex sex,
-    DateTime dob,
-    Position position,
-    String department,
-    double salary,
-    this.role,
-    this.officeNumber,
-  ) : super(id, name, sex, dob, position, department, salary);
+  Staff(
+    this._id,
+    this._name,
+    this._sex,
+    this._dob,
+    this._position,
+    this._department,
+    this._salary
+  );
 
-  @override
-  void displayInfo() {
-    print(' Admin Staff Information');
-    print('------------------------------');
-    print('ID: $id');
-    print('Name: $name');
-    print('Sex: ${sex.name}');
-    print('DOB: ${dob.toLocal()}');
-    print('Department: $department');
-    print('Position: ${position.name}');
-    print('Role: ${role.name}');
-    print('Office Number: $officeNumber');
-    print('Salary: \$${salary.toStringAsFixed(2)}');
-  }
+  String get id => _id;
+  String get name => _name;
+  Sex get sex => _sex;
+  DateTime get dob => _dob;
+  Position get position => _position;
+  String get department => _department;
+  double get salary => _salary;
 
-  @override
-  Map<String, dynamic> toJson() => {
-        'type': 'admin',
-        'id': id,
-        'name': name,
-        'sex': sex.name,
-        'dob': dob.toIso8601String(),
-        'position': position.name,
-        'department': department,
-        'salary': salary,
-        'role': role.name,
-        'officeNumber': officeNumber,
-      };
+  void displayInfo();
 
-  factory AdminStaff.fromJson(Map<String, dynamic> json) => AdminStaff(
-        json['id'],
-        json['name'],
-        Sex.values.firstWhere((e) => e.name == json['sex']),
-        DateTime.parse(json['dob']),
-        Position.values.firstWhere((e) => e.name == json['position']),
-        json['department'],
-        (json['salary'] as num).toDouble(),
-        Role.values.firstWhere((e) => e.name == json['role']),
-        json['officeNumber'],
-      );
+  Map<String, dynamic> toJson();
+
+  // Optional salary methods with encapsulation logic.
+  // double getSalary() => _salary;
+  // void setSalary(double value) {
+  //   if (value > 0) _salary = value;
+  // }
 }
