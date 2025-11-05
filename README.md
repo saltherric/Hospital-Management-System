@@ -32,6 +32,7 @@ Hospital-Management-System/
 |   ├── admin.json
 |   ├── doctor.json
 |   ├── nurse.json
+│   │
 |── lib/
 |   ├── domain/
 |   │    ├── staff.dart
@@ -40,8 +41,10 @@ Hospital-Management-System/
 |   │    └── admin_staff.dart
 |   ├── data/
 |   │    └── staff_repository.dart
-|   └── ui/
-|         └── main_console.dart
+|   ├── ui/
+│   |    └── main_console.dart
+│   └── main.dart
+│
 └── test/
     └── staff_test.dart
 
