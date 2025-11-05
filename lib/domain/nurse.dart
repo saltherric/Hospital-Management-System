@@ -1,22 +1,59 @@
-// import 'staff.dart';
+import 'staff.dart';
 
-// class Nurse extends Staff {
-//     String shift;
-//     String assignWard;
+class Nurse extends Staff {
+  final String shift; 
+  final String assignedWard;
 
-//     Nurse(
-//       int id, 
-//       String name, 
-//       String department, 
-//       double salary,
-//       this.shift, this.assignWard)
-//       : super(id, name, sex, salary);
-    
-//     void assistDoctor() => print("$name is assisting the doctor.");
-//     void updatePatientStatus() => print("$name updated patient status");
+  Nurse(
+    int id,
+    String name,
+    Sex sex,
+    DateTime dob,
+    Position position,
+    String department,
+    double salary,
+    this.shift,
+    this.assignedWard,
+  ) : super(id, name, sex, dob, position, department, salary);
 
-//     @override
-//     void displayInfo() {
-//         print("Nurse: $name | Ward: $assignWard | Shift: $shift | ");
-//     }
-// }
+  @override
+  void displayInfo() {
+    print(' Nurse Information');
+    print('------------------------------');
+    print('ID: $id');
+    print('Name: $name');
+    print('Sex: ${sex.name}');
+    print('DOB: ${dob.toLocal()}');
+    print('Department: $department');
+    print('Position: ${position.name}');
+    print('Shift: $shift');
+    print('Assigned Ward: $assignedWard');
+    print('Salary: \$${salary.toStringAsFixed(2)}');
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'type': 'nurse',
+        'id': id,
+        'name': name,
+        'sex': sex.name,
+        'dob': dob.toIso8601String(),
+        'position': position.name,
+        'department': department,
+        'salary': salary,
+        'shift': shift,
+        'assignedWard': assignedWard,
+      };
+
+  factory Nurse.fromJson(Map<String, dynamic> json) => Nurse(
+        json['id'],
+        json['name'],
+        Sex.values.firstWhere((e) => e.name == json['sex']),
+        DateTime.parse(json['dob']),
+        Position.values.firstWhere((e) => e.name == json['position']),
+        json['department'],
+        (json['salary'] as num).toDouble(),
+        json['shift'],
+        json['assignedWard'],
+      );
+}

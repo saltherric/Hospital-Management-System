@@ -1,22 +1,24 @@
 import '../domain/staff.dart';
 import '../domain/doctor.dart';
-// import '../domain/nurse.dart';
+import '../domain/nurse.dart';
+import '../domain/admin_staff.dart';
 import 'dart:io';
 import 'dart:convert';
 
 // JSON save/load logic here
-
 class StaffRepository {
   List<Staff> staffList = [];
 
   final String doctorFile = 'data/doctor.json';
-  // ..........nurseFile..=.......nurse.json..;
+  final String nurseFile = 'data/nurse.json';
+  final String adminFile = 'data/admin.json';
 
   // Load data from JSON
   void loadData() {
     staffList.clear();
     staffList.addAll(_load(doctorFile, 'doctor'));
-    // ....................nurseFile....nurse....;
+    staffList.addAll(_load(nurseFile, 'nurse')); // Added for Nurse
+    staffList.addAll(_load(adminFile, 'admin')); // Added for Admin
   }
 
   // Add a new Staff 
@@ -56,7 +58,9 @@ class StaffRepository {
   void _save(Staff s) {
     late String file;
     if (s is Doctor) file = doctorFile;
-    // else if (s is Nurse)
+    else if (s is Nurse) file = nurseFile; // Added for Nurse
+    else if (s is AdminStaff) file = adminFile; // Added for Admin
+    else return;
 
     final f = File(file);
     List data = [];
@@ -73,10 +77,31 @@ class StaffRepository {
 
   // Save all Staff again (used after deletion)
   void _saveAll() {
+    // Doctor
     File(doctorFile).writeAsStringSync(
       JsonEncoder.withIndent('  ').convert(
         staffList
             .where((s) => s is Doctor)
+            .map((s) => s.toJson())
+            .toList(),
+      ),
+    );
+
+    // Nurse
+    File(nurseFile).writeAsStringSync(
+      JsonEncoder.withIndent('  ').convert(
+        staffList
+            .where((s) => s is Nurse)
+            .map((s) => s.toJson())
+            .toList(),
+      ),
+    );
+
+    // Admin
+    File(adminFile).writeAsStringSync(
+      JsonEncoder.withIndent('  ').convert(
+        staffList
+            .where((s) => s is AdminStaff)
             .map((s) => s.toJson())
             .toList(),
       ),
@@ -95,6 +120,10 @@ class StaffRepository {
     switch (type) {
       case 'doctor':
         return data.map((e) => Doctor.fromJson(e)).toList();
+      case 'nurse': // Added for Nurse
+        return data.map((e) => Nurse.fromJson(e)).toList();
+      case 'admin': // Added for Admin
+        return data.map((e) => AdminStaff.fromJson(e)).toList();
       default:
         return [];
     }
