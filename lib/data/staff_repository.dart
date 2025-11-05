@@ -71,7 +71,7 @@ class StaffRepository {
     f.writeAsStringSync(JsonEncoder.withIndent('  ').convert(data));
   }
 
-  // Save all Doctors again (used after deletion)
+  // Save all Staff again (used after deletion)
   void _saveAll() {
     File(doctorFile).writeAsStringSync(
       JsonEncoder.withIndent('  ').convert(
@@ -83,7 +83,7 @@ class StaffRepository {
     );
   }
 
-  // Load all Doctors from JSON
+  // Load all Staff from JSON
   List<Staff> _load(String path, String type) {
     final f = File(path);
     if (!f.existsSync()) return [];
