@@ -1,0 +1,24 @@
+[
+  {
+    "id": "D100",
+    "name": "Dr.Ric",
+    "sex": "Male",
+    "dob": "2000-08-20T00:00:00.000",
+    "position": "Doctor",
+    "department": "Scarlet",
+    "salary": 3000.0,
+    "specialization": "Heart Specialist",
+    "patientsCount": 10
+  },
+  {
+    "id": "D102",
+    "name": "dr.Dara",
+    "sex": "Male",
+    "dob": "1999-02-23T00:00:00.000",
+    "position": "Doctor",
+    "department": "Cardiology",
+    "salary": 2500.0,
+    "specialization": "General",
+    "patientsCount": 12
+  }
+]

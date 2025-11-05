@@ -1,0 +1,78 @@
+import 'dart:io';
+import '../data/staff_repository.dart';
+import '../domain/staff.dart';
+import '../domain/doctor.dart';
+// import '../domain/nurse.dart';
+
+// Handles user input/output
+void main() {
+  final repo = StaffRepository();
+  repo.loadData();
+  print('=====>Data loaded successfully<=====');
+
+  while (true) {
+    print('\n HOSPITAL STAFF SYSTEM');
+    print('1. Add Staff');
+    print('2. View All Staff');
+    print('3. Search Staff by ID');
+    print('4. Remove Staff');
+    print('5. Exit');
+    stdout.write('Choose: ');
+    final choice = stdin.readLineSync();
+
+    if (choice == '1') addStaff(repo);
+    else if (choice == '2') repo.viewAll();
+    else if (choice == '3') searchStaff(repo);
+    else if (choice == '4') removeStaff(repo);
+    else if (choice == '5') break;
+    else print('Invalid choice.');
+  }
+}
+
+void addStaff(StaffRepository repo) {
+  stdout.write('Type (doctor/nurse/admin): ');
+  final type = stdin.readLineSync()!.toLowerCase();
+
+  stdout.write('ID: ');
+  final id = stdin.readLineSync()!;
+
+  stdout.write('Name: ');
+  final name = stdin.readLineSync()!;
+
+  stdout.write('Sex (Male/Female): ');
+  final sex = Sex.values.firstWhere((e) => e.name.toLowerCase() == stdin.readLineSync()!.toLowerCase());
+
+  stdout.write('DOB (YYYY-MM-DD): ');
+  final dob = DateTime.parse(stdin.readLineSync()!);
+
+  stdout.write('Department: ');
+  final dept = stdin.readLineSync()!;
+
+  stdout.write('Salary: ');
+  final salary = double.parse(stdin.readLineSync()!);
+
+  if (type == 'doctor') {
+    stdout.write('Specialization: ');
+    final spec = stdin.readLineSync()!;
+    stdout.write('Patients Count: ');
+    final count = int.parse(stdin.readLineSync()!);
+    repo.addStaff(Doctor(id, name, sex, dob, Position.Doctor, dept, salary, spec, count));
+  } 
+
+  print('=====>Staff added successfully<=====');
+}
+
+void searchStaff(StaffRepository repo) {
+  stdout.write('Enter ID: ');
+  final id = stdin.readLineSync()!;
+  final s = repo.findById(id);
+  if (s == null) print('Staff not found.');
+  else s.displayInfo();
+}
+
+void removeStaff(StaffRepository repo) {
+  stdout.write('Enter ID to remove: ');
+  final id = stdin.readLineSync()!;
+  repo.removeStaff(id);
+  print('=====>Staff has been removed<=====');
+}
