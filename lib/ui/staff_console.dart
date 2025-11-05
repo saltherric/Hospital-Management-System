@@ -5,29 +5,33 @@ import '../domain/doctor.dart';
 // import '../domain/nurse.dart';
 
 // Handles user input/output
-void main() {
+class StaffConsole {
   final repo = StaffRepository();
-  repo.loadData();
-  print('=====>Data loaded successfully<=====');
 
-  while (true) {
-    print('\n HOSPITAL STAFF SYSTEM');
-    print('1. Add Staff');
-    print('2. View All Staff');
-    print('3. Search Staff by ID');
-    print('4. Remove Staff');
-    print('5. Exit');
-    stdout.write('Choose: ');
-    final choice = stdin.readLineSync();
+  void start() {
+    repo.loadData();
+    print('=====>Data loaded successfully<=====');
 
-    if (choice == '1') addStaff(repo);
-    else if (choice == '2') repo.viewAll();
-    else if (choice == '3') searchStaff(repo);
-    else if (choice == '4') removeStaff(repo);
-    else if (choice == '5') break;
-    else print('Invalid choice.');
+    while (true) {
+      print('\n HOSPITAL STAFF SYSTEM');
+      print('1. Add Staff');
+      print('2. View All Staff');
+      print('3. Search Staff by ID');
+      print('4. Remove Staff');
+      print('5. Exit');
+      stdout.write('Choose: ');
+      final choice = stdin.readLineSync();
+
+      if (choice == '1') addStaff(repo);
+      else if (choice == '2') repo.viewAll();
+      else if (choice == '3') searchStaff(repo);
+      else if (choice == '4') removeStaff(repo);
+      else if (choice == '5') break;
+      else print('Invalid choice.');
+    }
   }
 }
+
 
 void addStaff(StaffRepository repo) {
   stdout.write('Type (doctor/nurse/admin): ');
