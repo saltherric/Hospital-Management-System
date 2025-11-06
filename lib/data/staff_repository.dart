@@ -77,7 +77,7 @@ class StaffRepository {
   // Remove staff by ID
   void removeStaff(String id) {
     staffList.removeWhere((s) => s.id == id);
-    _saveAll();
+    saveAll();
   }
 
   // Save one Staff
@@ -102,7 +102,7 @@ class StaffRepository {
   }
 
   // Save all Staff again (used after deletion)
-  void _saveAll() {
+  void saveAll() {
     // Doctor
     File(doctorFile).writeAsStringSync(
       JsonEncoder.withIndent('  ').convert(
@@ -133,6 +133,8 @@ class StaffRepository {
       ),
     );
   }
+
+  
 
   // Load all Staff from JSON
   List<Staff> _load(String path, String type) {

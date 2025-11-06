@@ -17,7 +17,8 @@ class StaffConsole {
       print('2. View All Staff');
       print('3. Search Staff by ID');
       print('4. Remove Staff');
-      print('5. Exit');
+      print('5. Update Staff Info');
+      print('6. Exit');
       stdout.write('Choose: ');
       final choice = stdin.readLineSync();
 
@@ -25,12 +26,14 @@ class StaffConsole {
       else if (choice == '2') repo.viewAll();
       else if (choice == '3') searchStaff(repo);
       else if (choice == '4') removeStaff(repo);
-      else if (choice == '5') break;
+      else if (choice == '5') updateStaff(repo);
+      else if (choice == '6') break;
       else print('Invalid choice.');
     }
   }
 }
 
+// -------Add a new Staff 
 void addStaff(StaffRepository repo) {
   stdout.write('Type (doctor/nurse/admin): ');
   final type = stdin.readLineSync()!.trim().toLowerCase();
@@ -107,6 +110,7 @@ void addStaff(StaffRepository repo) {
   print('===>Staff added successfully!');
 }
 
+// -------Search Staff by id
 void searchStaff(StaffRepository repo) {
   stdout.write('Enter ID: ');
   final id = stdin.readLineSync()!;
@@ -127,10 +131,44 @@ void searchStaff(StaffRepository repo) {
   }
 }
 
-
+// -------Remove Staff by id
 void removeStaff(StaffRepository repo) {
   stdout.write('Enter ID to remove: ');
   final id = stdin.readLineSync()!;
   repo.removeStaff(id);
   print('===>Staff has been removed!');
 }
+
+// -------Update existing Staff 
+void updateStaff(StaffRepository repo) {
+  stdout.write('Enter Staff ID to update: ');
+  final id = stdin.readLineSync()!;
+  final staff = repo.findById(id);
+
+  if (staff == null) {
+    print('No staff found with ID $id');
+    return;
+  }
+
+  print('\n===> Updating Staff Information <===');
+  staff.displayInfo();
+
+  stdout.write('Enter new name (leave blank to keep current): ');
+  final newName = stdin.readLineSync()!;
+  if (newName.isNotEmpty) staff.updateName(newName);
+
+  stdout.write('Enter new department (leave blank to keep current): ');
+  final newDept = stdin.readLineSync()!;
+  if (newDept.isNotEmpty) staff.updateDepartment(newDept);
+
+  stdout.write('Enter new salary (leave blank to keep current): ');
+  final newSalaryInput = stdin.readLineSync()!;
+  if (newSalaryInput.isNotEmpty) {
+    final newSalary = double.tryParse(newSalaryInput);
+    if (newSalary != null) staff.updateSalary(newSalary);
+  }
+
+  repo.saveAll(); 
+  print('===> Staff info updated successfully! <===');
+}
+

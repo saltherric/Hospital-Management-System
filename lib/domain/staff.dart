@@ -8,11 +8,11 @@ enum Role { HROfficer, Accountant }
 
 abstract class Staff {
   final String _id;
-  final String _name;
+  String _name;
   final Sex _sex;
   final DateTime _dob;
   final Position _position;
-  final String _department;
+  String _department;
   double _salary;
 
   Staff(
@@ -45,7 +45,19 @@ abstract class Staff {
   String get department => _department;
   double get salary => _salary;
 
+  void updateName(String value) {
+    _name = value;
+  }
+
+  void updateDepartment(String value) {
+    _department = value;
+  }
+
+  void updateSalary(double value) {
+    _salary = value;
+  }
+
   void displayInfo();
-  
+
   Map<String, dynamic> toJson();
 }
