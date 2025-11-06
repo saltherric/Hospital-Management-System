@@ -17,8 +17,8 @@ class StaffRepository {
   void loadData() {
     staffList.clear();
     staffList.addAll(_load(doctorFile, 'doctor'));
-    staffList.addAll(_load(nurseFile, 'nurse')); // Added for Nurse
-    staffList.addAll(_load(adminFile, 'admin')); // Added for Admin
+    staffList.addAll(_load(nurseFile, 'nurse')); 
+    staffList.addAll(_load(adminFile, 'admin')); 
   }
 
   // Add a new Staff 
@@ -27,15 +27,41 @@ class StaffRepository {
     _save(s);
   }
 
-  // View all staff
+  // View all staff (grouped by type)
   void viewAll() {
     if (staffList.isEmpty) {
       print('No staff found!');
       return;
     }
-    for (var s in staffList) {
-      print('-----------------------------');
-      s.displayInfo();
+
+    // Group doctors
+    final doctors = staffList.where((s) => s is Doctor).toList();
+    if (doctors.isNotEmpty) {
+      print('\n===== DOCTOR INFORMATION =====');
+      for (var s in doctors) {
+        print('-----------------------------');
+        s.displayInfo();
+      }
+    }
+
+    // Group nurses
+    final nurses = staffList.where((s) => s is Nurse).toList();
+    if (nurses.isNotEmpty) {
+      print('\n===== NURSE INFORMATION =====');
+      for (var s in nurses) {
+        print('-----------------------------');
+        s.displayInfo();
+      }
+    }
+
+    // Group admin staff
+    final admins = staffList.where((s) => s is AdminStaff).toList();
+    if (admins.isNotEmpty) {
+      print('\n===== ADMIN STAFF INFORMATION =====');
+      for (var s in admins) {
+        print('-----------------------------');
+        s.displayInfo();
+      }
     }
   }
 
@@ -58,8 +84,8 @@ class StaffRepository {
   void _save(Staff s) {
     late String file;
     if (s is Doctor) file = doctorFile;
-    else if (s is Nurse) file = nurseFile; // Added for Nurse
-    else if (s is AdminStaff) file = adminFile; // Added for Admin
+    else if (s is Nurse) file = nurseFile; 
+    else if (s is AdminStaff) file = adminFile; 
     else return;
 
     final f = File(file);
@@ -120,9 +146,9 @@ class StaffRepository {
     switch (type) {
       case 'doctor':
         return data.map((e) => Doctor.fromJson(e)).toList();
-      case 'nurse': // Added for Nurse
+      case 'nurse': 
         return data.map((e) => Nurse.fromJson(e)).toList();
-      case 'admin': // Added for Admin
+      case 'admin': 
         return data.map((e) => AdminStaff.fromJson(e)).toList();
       default:
         return [];

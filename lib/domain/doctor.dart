@@ -7,7 +7,7 @@ class Doctor extends Staff {
   Doctor(
     String id, 
     String name, 
-    Sex sex,
+    String sex,
     DateTime dob,
     Position position,
     String department, 
@@ -27,11 +27,9 @@ class Doctor extends Staff {
 
   @override
   void displayInfo() {
-    print('Doctor Information');
-    print('------------------------------');
     print('ID: $id');
     print('Name: $name');
-    print('Sex: ${sex.name}');
+    print('Sex: ${sex}');
     print('DOB: ${dob.toLocal()}');
     print('Department: $department');
     print('Position: ${position.name}');
@@ -42,13 +40,6 @@ class Doctor extends Staff {
 
   @override
   Map<String, dynamic> toJson() => {
-    'id' : id,
-    'name' : name,
-    'sex' : sex.name,
-    'dob' : dob.toIso8601String(),
-    'position' : position.name,
-    'department' : department,
-    'salary' : salary,
     'specialization' : specialization,
     'patientsCount' : patientsCount,
   };
@@ -56,7 +47,7 @@ class Doctor extends Staff {
   factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
     json['id'],
     json['name'],
-    Sex.values.firstWhere((s) => s.name == json['sex']),
+    json['sex'],
     DateTime.parse(json['dob']),
     Position.values.firstWhere((p) => p.name == json['position']),
     json['department'],

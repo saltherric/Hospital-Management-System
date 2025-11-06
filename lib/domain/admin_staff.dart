@@ -7,7 +7,7 @@ class AdminStaff extends Staff {
   AdminStaff(
     String id,
     String name,
-    Sex sex,
+    String sex,
     DateTime dob,
     Position position,
     String department,
@@ -18,11 +18,9 @@ class AdminStaff extends Staff {
 
   @override
   void displayInfo() {
-    print(' Admin Staff Information');
-    print('------------------------------');
     print('ID: $id');
     print('Name: $name');
-    print('Sex: ${sex.name}');
+    print('Sex: ${sex}');
     print('DOB: ${dob.toLocal()}');
     print('Department: $department');
     print('Position: ${position.name}');
@@ -33,27 +31,27 @@ class AdminStaff extends Staff {
 
   @override
   Map<String, dynamic> toJson() => {
-        'type': 'admin',
-        'id': id,
-        'name': name,
-        'sex': sex.name,
-        'dob': dob.toIso8601String(),
-        'position': position.name,
-        'department': department,
-        'salary': salary,
-        'role': role.name,
-        'officeNumber': officeNumber,
-      };
+    'type': 'admin',
+    'id': id,
+    'name': name,
+    'sex': sex,
+    'dob': dob.toIso8601String(),
+    'position': position.name,
+    'department': department,
+    'salary': salary,
+    'role': role.name,
+    'officeNumber': officeNumber,
+  };
 
   factory AdminStaff.fromJson(Map<String, dynamic> json) => AdminStaff(
-        json['id'],
-        json['name'],
-        Sex.values.firstWhere((e) => e.name == json['sex']),
-        DateTime.parse(json['dob']),
-        Position.values.firstWhere((e) => e.name == json['position']),
-        json['department'],
-        (json['salary'] as num).toDouble(),
-        Role.values.firstWhere((e) => e.name == json['role']),
-        json['officeNumber'],
-      );
+    json['id'],
+    json['name'],
+    json['sex'],
+    DateTime.parse(json['dob']),
+    Position.values.firstWhere((e) => e.name == json['position']),
+    json['department'],
+    (json['salary'] as num).toDouble(),
+    Role.values.firstWhere((e) => e.name == json['role']),
+    json['officeNumber'],
+  );
 }

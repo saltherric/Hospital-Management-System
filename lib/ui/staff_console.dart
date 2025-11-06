@@ -11,7 +11,7 @@ class StaffConsole {
 
   void start() {
     repo.loadData();
-    print('=====>Data loaded successfully<=====');
+    print('===>Data loaded successfully!');
 
     while (true) {
       print('\n HOSPITAL STAFF SYSTEM');
@@ -44,19 +44,22 @@ void addStaff(StaffRepository repo) {
   final name = stdin.readLineSync()!;
 
   stdout.write('Sex (Male/Female): ');
-  final sex = Sex.values.firstWhere(
-    (e) => e.name.toLowerCase() == stdin.readLineSync()!.toLowerCase(),
-    orElse: () => Sex.Male,
-  );
+  final sex = stdin.readLineSync()!;
 
   stdout.write('DOB (YYYY-MM-DD): ');
   DateTime dob;
-  try {
-    dob = DateTime.parse(stdin.readLineSync()!);
-  } catch (e) {
-    print('Invalid date format. Defaulting to 2000-01-01.');
-    dob = DateTime(2000, 1, 1);
+
+  while (true) {
+    final input = stdin.readLineSync()!;
+    try {
+      dob = DateTime.parse(input);
+      break; 
+    } catch (e) {
+      print('Invalid date format. Please try again (example: 1999-09-23): ');
+      stdout.write('DOB (YYYY-MM-DD): ');
+    }
   }
+
 
   stdout.write('Department: ');
   final dept = stdin.readLineSync()!;
@@ -94,20 +97,33 @@ void addStaff(StaffRepository repo) {
     return;
   }
 
-  print('=====>Staff added successfully<=====');
+  print('===>Staff added successfully!');
 }
 
 void searchStaff(StaffRepository repo) {
   stdout.write('Enter ID: ');
   final id = stdin.readLineSync()!;
   final s = repo.findById(id);
-  if (s == null) print('Staff not found.');
-  else s.displayInfo();
+
+  if (s == null) {
+    print('----------------------------------');
+    print(' Staff not found with ID: $id');
+    print('----------------------------------');
+  } else {
+    print('\n==================================');
+    print('         STAFF INFORMATION         ');
+    print('==================================');
+    print('Type: ${s.runtimeType}');
+    print('----------------------------------');
+    s.displayInfo();
+    print('==================================');
+  }
 }
+
 
 void removeStaff(StaffRepository repo) {
   stdout.write('Enter ID to remove: ');
   final id = stdin.readLineSync()!;
   repo.removeStaff(id);
-  print('=====>Staff has been removed<=====');
+  print('===>Staff has been removed!');
 }

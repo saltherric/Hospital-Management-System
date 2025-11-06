@@ -1,11 +1,10 @@
-enum Sex { Male, Female }
 enum Position { Doctor, Nurse, AdminStaff }
 enum Role { HROfficer, Accountant, ITManager }
 
 abstract class Staff {
   final String _id;
   final String _name;
-  final Sex _sex;
+  final String _sex;
   final DateTime _dob;
   final Position _position;
   final String _department;
@@ -23,7 +22,7 @@ abstract class Staff {
 
   String get id => _id;
   String get name => _name;
-  Sex get sex => _sex;
+  String get sex => _sex;
   DateTime get dob => _dob;
   Position get position => _position;
   String get department => _department;
@@ -33,9 +32,4 @@ abstract class Staff {
 
   Map<String, dynamic> toJson();
 
-  // Optional salary methods with encapsulation logic.
-  // double getSalary() => _salary;
-  // void setSalary(double value) {
-  //   if (value > 0) _salary = value;
-  // }
 }
