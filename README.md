@@ -14,13 +14,17 @@ This project focuses on **managing hospital staff**, including:
 - 👨‍⚕️ Nurses  
 - 🧑‍💼 Administrative Personnel  
 
-### ✳️ Key Operations:
-- Add new staff members  
-- View all staff information  
-- Search staff by ID or department  
-- Remove staff from the system  
+### ✳️ **Implemented Operations**
+|       Operation              | Description |
+|------------------------------|-------------|
+| ➕ **Add Staff**            | Register new doctors, nurses, or admin staff into the system. |
+| 📋 **View All Staff**       | Display details of all registered staff members by type. |
+| 🔍 **Search Staff by ID**   | Quickly find a staff member using their unique system-generated ID. |
+| ❌ **Remove Staff**         | Delete staff records permanently from the system. |
+| ✏️ **Update Staff Info**    | Modify staff attributes like name, department, or salary. |
+| ⚙️ **Perform Staff Action** | Simulate real-world staff behaviors (e.g., doctor checkup, nurse assisting, HR managing). |
 
-This feature demonstrates OOP principles through **inheritance**, **polymorphism**, and **encapsulation** while keeping the implementation simple and focused.
+Each operation demonstrates the use of **Encapsulation**, **Inheritance**, and **Polymorphism** in action.  
 
 ---
 
@@ -47,18 +51,7 @@ Hospital-Management-System/
 │
 └── test/
     └── staff_test.dart
-
 ```
-
-### 🔹 Layer Descriptions
-
-| Layer       | Description |
-|-------------|-------------|
-| **Domain**  | Defines core classes like `Staff`, `Doctor`, `Nurse`, and `AdminStaff`. |
-| **Data**    | Provides in-memory data management (add, remove, search, list). |
-| **UI**      | Offers a console-based menu for interaction. |
-| **Test**    | Contains automated tests for domain logic using `package:test/test.dart`. |
-
 
 ---
 
@@ -67,6 +60,23 @@ Hospital-Management-System/
 - **Architecture:** Layered (Domain, Data, UI)  
 - **Testing Framework:** `package:test/test.dart`  
 - **Optional:** File persistence (JSON or text files)
+
+---
+
+## 🧠 System Features in Action  
+
+### 👨‍⚕️ **Doctor**
+- Performs patient checkups  
+- Prescribes medication
+
+### 👩‍⚕️ **Nurse**
+- Assists doctors  
+- Updates patient recovery status  
+
+### 👩‍💼 **Admin Staff**
+- Performs role-based operations:  
+  - **HROfficer:** Manages appointments and staff reports  
+  - **Accountant:** Generates financial reports  
 
 ---
 
