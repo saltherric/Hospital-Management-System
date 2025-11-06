@@ -5,13 +5,11 @@ import '../domain/doctor.dart';
 import '../domain/nurse.dart';
 import '../domain/admin_staff.dart';
 
-// Handles user input/output
 class StaffConsole {
   final repo = StaffRepository();
 
   void start() {
     repo.loadData();
-    print('===>Data loaded successfully!');
 
     while (true) {
       print('\n HOSPITAL STAFF SYSTEM');
@@ -35,62 +33,71 @@ class StaffConsole {
 
 void addStaff(StaffRepository repo) {
   stdout.write('Type (doctor/nurse/admin): ');
-  final type = stdin.readLineSync()!.toLowerCase();
+  final type = stdin.readLineSync()!.trim().toLowerCase();
 
-  stdout.write('ID: ');
-  final id = stdin.readLineSync()!;
-
+  // Name
   stdout.write('Name: ');
   final name = stdin.readLineSync()!;
 
+  // Sex
   stdout.write('Sex (Male/Female): ');
-  final sex = stdin.readLineSync()!;
+  final sexInput = stdin.readLineSync()!;
+  final sex = Sex.values.firstWhere(
+    (e) => e.name.toLowerCase() == sexInput.toLowerCase(),
+  );
 
+  // Date of birth
   stdout.write('DOB (YYYY-MM-DD): ');
   DateTime dob;
-
   while (true) {
     final input = stdin.readLineSync()!;
     try {
       dob = DateTime.parse(input);
-      break; 
+      break;
     } catch (e) {
       print('Invalid date format. Please try again (example: 1999-09-23): ');
       stdout.write('DOB (YYYY-MM-DD): ');
     }
   }
 
-
+  // Department
   stdout.write('Department: ');
   final dept = stdin.readLineSync()!;
 
+  // Salary
   stdout.write('Salary: ');
   final salary = double.tryParse(stdin.readLineSync()!) ?? 0.0;
 
+  // Type -> Doctor
   if (type == 'doctor') {
     stdout.write('Specialization: ');
     final spec = stdin.readLineSync()!;
     stdout.write('Patients Count: ');
     final count = int.tryParse(stdin.readLineSync()!) ?? 0;
-    repo.addStaff(Doctor(id, name, sex, dob, Position.Doctor, dept, salary, spec, count));
+
+    repo.addStaff(Doctor(null, name, sex, dob, Position.Doctor, dept, salary, spec, count));
   } 
+
+  // Type -> Nurse
   else if (type == 'nurse') {
     stdout.write('Shift (Day/Night): ');
     final shift = stdin.readLineSync()!;
     stdout.write('Assigned Ward: ');
     final ward = stdin.readLineSync()!;
-    repo.addStaff(Nurse(id, name, sex, dob, Position.Nurse, dept, salary, shift, ward));
+
+    repo.addStaff(Nurse(null, name, sex, dob, Position.Nurse, dept, salary, shift, ward));
   } 
+
+  // Type -> Admin
   else if (type == 'admin') {
-    stdout.write('Role (HROfficer/Accountant/ITManager): ');
+    stdout.write('Role (HROfficer/Accountant): ');
     final roleInput = stdin.readLineSync()!;
     final role = Role.values.firstWhere(
       (e) => e.name.toLowerCase() == roleInput.toLowerCase(),
-      orElse: () => Role.HROfficer,
     );
     stdout.write('Office Number: ');
     final office = stdin.readLineSync()!;
-    repo.addStaff(AdminStaff(id, name, sex, dob, Position.AdminStaff, dept, salary, role, office));
+    repo.addStaff(AdminStaff(null, name, sex, dob, Position.AdminStaff, dept, salary, role, office));
   } 
   else {
     print('Invalid staff type.');

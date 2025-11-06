@@ -5,9 +5,9 @@ class Nurse extends Staff {
   final String assignedWard;
 
   Nurse(
-    String id,
+    String? id,
     String name,
-    String sex,
+    Sex sex,
     DateTime dob,
     Position position,
     String department,
@@ -20,7 +20,7 @@ class Nurse extends Staff {
   void displayInfo() {
     print('ID: $id');
     print('Name: $name');
-    print('Sex: $sex');
+    print('Sex: ${sex.name}');
     print('DOB: ${dob.toLocal()}');
     print('Department: $department');
     print('Position: ${position.name}');
@@ -34,7 +34,7 @@ class Nurse extends Staff {
     'type': 'nurse',
     'id': id,
     'name': name,
-    'sex': sex,
+    'sex': sex.name,
     'dob': dob.toIso8601String(),
     'position': position.name,
     'department': department,
@@ -47,7 +47,7 @@ class Nurse extends Staff {
   factory Nurse.fromJson(Map<String, dynamic> json) => Nurse(
     json['id'],
     json['name'],
-    json['sex'],
+    Sex.values.firstWhere((e) => e.name == json['sex']),
     DateTime.parse(json['dob']),
     Position.values.firstWhere((e) => e.name == json['position']),
     json['department'],

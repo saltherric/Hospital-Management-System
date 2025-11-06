@@ -1,14 +1,26 @@
 [
   {
     "type": "admin",
-    "id": "122",
-    "name": "dja",
+    "id": "A-EAF72",
+    "name": "Eang",
     "sex": "Female",
-    "dob": "3332-01-22T00:00:00.000",
+    "dob": "2002-12-02T00:00:00.000",
     "position": "AdminStaff",
-    "department": "da",
-    "salary": 32.0,
+    "department": "Hr",
+    "salary": 1000.0,
     "role": "Accountant",
-    "officeNumber": "23"
+    "officeNumber": "023"
+  },
+  {
+    "type": "admin",
+    "id": "A-B029B",
+    "name": "Che",
+    "sex": "Male",
+    "dob": "2000-12-23T00:00:00.000",
+    "position": "AdminStaff",
+    "department": "jl",
+    "salary": 3000.0,
+    "role": "HROfficer",
+    "officeNumber": "238"
   }
 ]

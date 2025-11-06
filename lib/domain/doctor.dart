@@ -5,9 +5,9 @@ class Doctor extends Staff {
   int patientsCount;
 
   Doctor(
-    String id, 
+    String? id, 
     String name, 
-    String sex,
+    Sex sex,
     DateTime dob,
     Position position,
     String department, 
@@ -16,20 +16,12 @@ class Doctor extends Staff {
     this.patientsCount
     )
     :super(id, name, sex, dob, position, department, salary);
-  
-  void performCheckup() {
-    print("$name is checking a patient.");
-    patientsCount++;
-  } 
-  void prescribeMedication(String patientName, String medicine) {
-    print("$name prescribed $medicine to $patientName.");
-  } 
 
   @override
   void displayInfo() {
     print('ID: $id');
     print('Name: $name');
-    print('Sex: ${sex}');
+    print('Sex: ${sex.name}');
     print('DOB: ${dob.toLocal()}');
     print('Department: $department');
     print('Position: ${position.name}');
@@ -40,6 +32,14 @@ class Doctor extends Staff {
 
   @override
   Map<String, dynamic> toJson() => {
+    'type': 'doctor',
+    'id': id,
+    'name': name,
+    'sex': sex.name,
+    'dob': dob.toIso8601String(),
+    'position': position.name,
+    'department': department,
+    'salary': salary,
     'specialization' : specialization,
     'patientsCount' : patientsCount,
   };
@@ -47,9 +47,9 @@ class Doctor extends Staff {
   factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
     json['id'],
     json['name'],
-    json['sex'],
+    Sex.values.firstWhere((e) => e.name == json['sex']),
     DateTime.parse(json['dob']),
-    Position.values.firstWhere((p) => p.name == json['position']),
+    Position.values.firstWhere((e) => e.name == json['position']),
     json['department'],
     (json['salary'] as num).toDouble(),
     json['specialization'],
