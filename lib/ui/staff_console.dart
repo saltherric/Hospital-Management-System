@@ -12,14 +12,18 @@ class StaffConsole {
     repo.loadData();
 
     while (true) {
-      print('\n HOSPITAL STAFF SYSTEM');
-      print('1. Add Staff');
-      print('2. View All Staff');
-      print('3. Search Staff by ID');
-      print('4. Remove Staff');
-      print('5. Update Staff Info');
-      print('6. Exit');
-      stdout.write('Choose: ');
+      print('╔════════════════════════════════════════════════════════════════════╗');
+      print('║                        HOSPITAL STAFF SYSTEM                       ║');
+      print('╠════════════════════════════════════════════════════════════════════╣');
+      print('║  1. Add Staff                                                      ║');
+      print('║  2. View All Staff                                                 ║');
+      print('║  3. Search Staff by ID                                             ║');
+      print('║  4. Remove Staff                                                   ║');
+      print('║  5. Update Staff Info                                              ║');
+      print('║  6. Perform Staff Action                                           ║');
+      print('║  7. Exit                                                           ║');
+      print('╚════════════════════════════════════════════════════════════════════╝');
+      stdout.write('Choose an option (1-7): ');
       final choice = stdin.readLineSync();
 
       if (choice == '1') addStaff(repo);
@@ -27,7 +31,8 @@ class StaffConsole {
       else if (choice == '3') searchStaff(repo);
       else if (choice == '4') removeStaff(repo);
       else if (choice == '5') updateStaff(repo);
-      else if (choice == '6') break;
+      else if (choice == '6') performStaffAction(repo);
+      else if (choice == '7') break;
       else print('Invalid choice.');
     }
   }
@@ -172,3 +177,93 @@ void updateStaff(StaffRepository repo) {
   print('===> Staff info updated successfully! <===');
 }
 
+//  Perform Staff Action
+void performStaffAction(StaffRepository repo) {
+  stdout.write('Enter Staff ID to perform action: ');
+  final id = stdin.readLineSync()!;
+  final staff = repo.findById(id);
+
+  if (staff == null) {
+    print('No staff found with ID $id');
+    return;
+  }
+
+  bool inActionMenu = true;
+
+  while (inActionMenu) {
+    print('\n===> Performing Action for ${staff.runtimeType} <===');
+
+    if (staff is Doctor) {
+      print('1. Perform Checkup');
+      print('2. Prescribe Medication');
+      print('3. Back to Main Menu');
+      stdout.write('Choose: ');
+      final choice = stdin.readLineSync()!;
+      switch (choice) {
+        case '1':
+          staff.performCheckup();
+          break;
+        case '2':
+          stdout.write('Enter patient name: ');
+          final patient = stdin.readLineSync()!;
+          stdout.write('Enter medicine: ');
+          final medicine = stdin.readLineSync()!;
+          staff.prescribeMedication(patient, medicine);
+          break;
+        case '3':
+          inActionMenu = false;
+          break;
+        default:
+          print('Invalid choice.');
+      }
+    } 
+    else if (staff is Nurse) {
+      print('1. Assist Doctor');
+      print('2. Update Patient Status');
+      print('3. Back to Main Menu');
+      stdout.write('Choose: ');
+      final choice = stdin.readLineSync()!;
+      switch (choice) {
+        case '1':
+          staff.assistDoctor();
+          break;
+        case '2':
+          stdout.write('Enter patient name: ');
+          final patient = stdin.readLineSync()!;
+          stdout.write('Enter status: ');
+          final status = stdin.readLineSync()!;
+          staff.updatePatientStatus(patient, status);
+          break;
+        case '3':
+          inActionMenu = false;
+          break;
+        default:
+          print('Invalid choice.');
+      }
+    } 
+    else if (staff is AdminStaff) {
+      print('1. Manage Appointments');
+      print('2. Generate Reports');
+      print('3. Back to Main Menu');
+      stdout.write('Choose: ');
+      final choice = stdin.readLineSync()!;
+      switch (choice) {
+        case '1':
+          staff.manageAppointments();
+          break;
+        case '2':
+          staff.generateReports();
+          break;
+        case '3':
+          inActionMenu = false;
+          break;
+        default:
+          print('Invalid choice.');
+      }
+    } 
+    else {
+      print('No actions available for this staff type.');
+      inActionMenu = false;
+    }
+  }
+}

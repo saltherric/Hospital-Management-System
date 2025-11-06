@@ -29,6 +29,22 @@ class AdminStaff extends Staff {
     print('Salary: \$${salary.toStringAsFixed(2)}');
   }
 
+  void manageAppointments() {
+    if (role == Role.HROfficer) {
+      print('HR Office $name managed doctor and staff schedules.');
+    } else{
+      print('Accountant $name could not manage appointments directly.');
+    }
+  }
+
+  void generateReports() {
+    if (role == Role.HROfficer) {
+      print('HR Office $name generated employee performance a reports.');
+    } else{
+      print('Accountant $name generated financial reports.');
+    }
+  }
+
   @override
   Map<String, dynamic> toJson() => {
     'type': 'admin',

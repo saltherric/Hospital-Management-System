@@ -43,6 +43,14 @@ class Nurse extends Staff {
     'assignedWard': assignedWard,
   };
 
+  void assistDoctor() {
+    print('Nurse $name assisted the doctor during treatment.');
+  }
+
+  void updatePatientStatus( String patientName, String status) {
+    print('Nurse $name updated $patientName to "$status".');
+  }
+
   @override
   factory Nurse.fromJson(Map<String, dynamic> json) => Nurse(
     json['id'],

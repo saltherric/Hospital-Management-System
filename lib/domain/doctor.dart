@@ -17,6 +17,14 @@ class Doctor extends Staff {
     )
     :super(id, name, sex, dob, position, department, salary);
 
+  void performCheckup() {
+    print('Dr. $name performed a checkup on a patient.');
+  }
+
+  void prescribeMedication(String patientName, String medicine) {
+    print('Dr. $name prescribed $medicine to $patientName');
+  }
+
   @override
   void displayInfo() {
     print('ID: $id');
