@@ -1,9 +1,13 @@
 import 'dart:io';
 import '../data/staff_repository.dart';
+import '../data/appointment_repository.dart';
 import '../domain/staff.dart';
 import '../domain/doctor.dart';
 import '../domain/nurse.dart';
 import '../domain/admin_staff.dart';
+// import '../domain/appointment.dart';
+// import '../domain/patient.dart';
+import '../data/patient_repository.dart';
 
 class StaffConsole {
   final repo = StaffRepository();
@@ -17,7 +21,7 @@ class StaffConsole {
       print('╠════════════════════════════════════════════════════════════════════╣');
       print('║  1. Add Staff                                                      ║');
       print('║  2. View All Staff                                                 ║');
-      print('║  3. Search Staff by ID                                             ║');
+      print('║  3. Search Staff                                                   ║');
       print('║  4. Remove Staff                                                   ║');
       print('║  5. Update Staff Info                                              ║');
       print('║  6. Perform Staff Action                                           ║');
@@ -193,74 +197,133 @@ void performStaffAction(StaffRepository repo) {
   while (inActionMenu) {
     print('\n===> Performing Action for ${staff.runtimeType} <===');
 
+  //--------------Doctor--------------
     if (staff is Doctor) {
       print('1. Perform Checkup');
-      print('2. Prescribe Medication');
-      print('3. Back to Main Menu');
+      print('2. Back to Main Menu');
       stdout.write('Choose: ');
       final choice = stdin.readLineSync()!;
+
       switch (choice) {
         case '1':
-          staff.performCheckup();
+          // Display all assigned appointments for this doctor
+          final appointmentRepo = AppointmentRepository();
+          final list = appointmentRepo.getAppointmentsForDoctor(staff.id);
+
+          if (list.isEmpty) {
+            print('\n No appointments assigned for Dr. ${staff.name}.\n');
+            break;
+          } else {
+            print('\n Assigned Appointments for Dr. ${staff.name}');
+            print('--------------------------------------------');
+            for (var a in list) {
+              print('- Patient: ${a.patientId} on ${a.startTime}');
+            }
+            print('--------------------------------------------\n');
+          }
+
+          // Perform checkup on a patient
+          stdout.write('Enter Patient ID to perform checkup: ');
+          final patientId = stdin.readLineSync()!;
+
+          // Verify the appointment
+          final hasAppointment = appointmentRepo.hasAppointment(staff.id, patientId);
+
+          if (!hasAppointment) {
+            print('\nDoctor ${staff.name} has no appointment assigned with patient "$patientId".');
+            print('Please ask AdminStaff to schedule one first.\n');
+            break;
+          }
+
+          // Load patient record
+          final patientRepo = PatientRepository();
+          var patient = patientRepo.findById(patientId);
+
+          // Perform checkup
+          staff.performCheckup(patient!);
+
+          // Save patient record after checkup
+          patientRepo.saveOrUpdate(patient);
+
+          print('Patient record saved successfully!\n');
           break;
+
         case '2':
-          stdout.write('Enter patient name: ');
-          final patient = stdin.readLineSync()!;
-          stdout.write('Enter medicine: ');
-          final medicine = stdin.readLineSync()!;
-          staff.prescribeMedication(patient, medicine);
-          break;
-        case '3':
           inActionMenu = false;
           break;
+
         default:
           print('Invalid choice.');
       }
-    } 
+    }
+
     else if (staff is Nurse) {
-      print('1. Assist Doctor');
-      print('2. Update Patient Status');
-      print('3. Back to Main Menu');
+      print('1. Update Patient Status');
+      print('2. Back to Main Menu');
       stdout.write('Choose: ');
       final choice = stdin.readLineSync()!;
+
       switch (choice) {
         case '1':
-          staff.assistDoctor();
+          stdout.write('Enter Patient Name: ');
+          final patientName = stdin.readLineSync()!;
+          stdout.write('Enter New Status (Recovering/Discharged/Critical): ');
+          final newStatus = stdin.readLineSync()!;
+
+          final patientRepo = PatientRepository();
+          final patient = patientRepo.findById(patientName);
+
+          if (patient == null) {
+            print('\n Patient not found.');
+            break;
+          }
+
+          staff.updatePatientStatus(patient, newStatus);
           break;
+
         case '2':
-          stdout.write('Enter patient name: ');
-          final patient = stdin.readLineSync()!;
-          stdout.write('Enter status: ');
-          final status = stdin.readLineSync()!;
-          staff.updatePatientStatus(patient, status);
-          break;
-        case '3':
           inActionMenu = false;
           break;
+
         default:
           print('Invalid choice.');
       }
-    } 
+    }
+
+
+  //--------------AdminStaff--------------
     else if (staff is AdminStaff) {
+      final appointmentRepo = AppointmentRepository();
+
       print('1. Manage Appointments');
-      print('2. Generate Reports');
-      print('3. Back to Main Menu');
+      print('2. Back to Main Menu');
       stdout.write('Choose: ');
       final choice = stdin.readLineSync()!;
       switch (choice) {
         case '1':
-          staff.manageAppointments();
-          break;
+          stdout.write('Enter Doctor ID: ');
+          final doctorId = stdin.readLineSync()!;
+          stdout.write('Enter patient ID: ');
+          final patientId = stdin.readLineSync()!;
+          stdout.write('Enter Appointment Date (YYYY-MM-DD HH:MM): ');
+          final startTime = stdin.readLineSync()!;
+
+          final appointment = staff.scheduleAppointment(doctorId, patientId, startTime);
+          appointmentRepo.addAppointment(appointment);
+
+          print('\n Appointment scheduled successfully!');
+          print('----------------------------------');
+          appointment.displayAppointment();
+          print('----------------------------------');
+          break;      
         case '2':
-          staff.generateReports();
-          break;
-        case '3':
           inActionMenu = false;
           break;
         default:
           print('Invalid choice.');
       }
     } 
+
     else {
       print('No actions available for this staff type.');
       inActionMenu = false;

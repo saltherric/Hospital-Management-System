@@ -1,4 +1,6 @@
+import 'package:hospital_management_system/data/patient_repository.dart';
 import 'staff.dart';
+import 'patient.dart';
 
 class Nurse extends Staff {
   final String shift; 
@@ -43,14 +45,6 @@ class Nurse extends Staff {
     'assignedWard': assignedWard,
   };
 
-  void assistDoctor() {
-    print('Nurse $name assisted the doctor during treatment.');
-  }
-
-  void updatePatientStatus( String patientName, String status) {
-    print('Nurse $name updated $patientName to "$status".');
-  }
-
   @override
   factory Nurse.fromJson(Map<String, dynamic> json) => Nurse(
     json['id'],
@@ -63,4 +57,25 @@ class Nurse extends Staff {
     json['shift'],
     json['assignedWard'],
   );
+
+  void updatePatientStatus(Patient patient, String newStatus) {
+    final now = DateTime.now();
+    final dateStr = 
+      '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} '
+      '${now.hour}-${now.month.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')} ';
+
+    // Update patient info
+    patient.status = newStatus;
+    patient.medicalHistory.add(
+      'Status updated to "$newStatus" by Nurse $name on $dateStr.'
+    );
+
+    // Save back to Json
+    final PatientRepo = PatientRepository();
+    PatientRepo.saveOrUpdate(patient);
+
+    print('\n Nurse $name updated patient ${patient.name} status to "$newStatus".');
+    print('----------------------------------');
+    patient.displayInfo();
+  }
 }

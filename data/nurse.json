@@ -1,14 +1,14 @@
 [
   {
     "type": "nurse",
-    "id": "N-C0E74",
-    "name": "Joory",
-    "sex": "Female",
-    "dob": "2000-02-12T00:00:00.000",
+    "id": "N-C9177",
+    "name": "Layeang",
+    "sex": "Male",
+    "dob": "2000-01-22T00:00:00.000",
     "position": "Nurse",
     "department": "ICU",
-    "salary": 900.0,
+    "salary": 1000.0,
     "shift": "Night",
-    "assignedWard": "Patient care"
+    "assignedWard": "Ward100"
   }
 ]

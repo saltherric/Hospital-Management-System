@@ -1,3 +1,4 @@
+import 'appointment.dart';
 import 'staff.dart';
 
 class AdminStaff extends Staff {
@@ -29,21 +30,6 @@ class AdminStaff extends Staff {
     print('Salary: \$${salary.toStringAsFixed(2)}');
   }
 
-  void manageAppointments() {
-    if (role == Role.HROfficer) {
-      print('HR Office $name managed doctor and staff schedules.');
-    } else{
-      print('Accountant $name could not manage appointments directly.');
-    }
-  }
-
-  void generateReports() {
-    if (role == Role.HROfficer) {
-      print('HR Office $name generated employee performance a reports.');
-    } else{
-      print('Accountant $name generated financial reports.');
-    }
-  }
 
   @override
   Map<String, dynamic> toJson() => {
@@ -70,4 +56,39 @@ class AdminStaff extends Staff {
     Role.values.firstWhere((e) => e.name == json['role']),
     json['officeNumber'],
   );
+
+  Appointment scheduleAppointment(String doctorId, String patientId, String startTime) {
+    DateTime dateTime;
+    try {
+      final parts = startTime.split(' ');
+      final dateParts = parts[0].split('-').map((s) => int.parse(s)).toList();
+      final timeParts = parts[1].split(':').map((s) => int.parse(s)).toList();
+      dateTime = DateTime(dateParts[0], dateParts[1], dateParts[2], timeParts[0], timeParts[1]);
+    } catch (e) {
+      throw FormatException('startTime must be "YYYY-MM-DD HH:MM');
+    }
+
+    final endDt = dateTime.add(Duration(minutes: 30));
+
+    String fmt(DateTime d) {
+      final yyyy = d.year.toString().padLeft(4, '0');
+      final mm = d.month.toString().padLeft(2, '0');
+      final dd = d.day.toString().padLeft(2, '0');
+      final HH = d.hour.toString().padLeft(2, '0');
+      final MM = d.minute.toString().padLeft(2, '0');
+
+      return '$yyyy-$mm-$dd $HH:$MM';
+    }
+
+    final computedEnd = fmt(endDt);
+
+    final appointment = Appointment(
+      doctorId: doctorId,
+      patientId: patientId,
+      startTime: startTime,
+      endTime: computedEnd,
+    );
+    return appointment;
+  }
+  
 }

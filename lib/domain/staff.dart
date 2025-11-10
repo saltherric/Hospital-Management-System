@@ -60,4 +60,5 @@ abstract class Staff {
   void displayInfo();
 
   Map<String, dynamic> toJson();
+
 }

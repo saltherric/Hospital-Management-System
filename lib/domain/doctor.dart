@@ -1,7 +1,10 @@
 import 'staff.dart';
+import 'patient.dart';
+import '../data/patient_repository.dart';
+import '../data/staff_repository.dart';
 
 class Doctor extends Staff {
-  final specialization;
+  final String specialization;
   int patientsCount;
 
   Doctor(
@@ -16,14 +19,6 @@ class Doctor extends Staff {
     this.patientsCount
     )
     :super(id, name, sex, dob, position, department, salary);
-
-  void performCheckup() {
-    print('Dr. $name performed a checkup on a patient.');
-  }
-
-  void prescribeMedication(String patientName, String medicine) {
-    print('Dr. $name prescribed $medicine to $patientName');
-  }
 
   @override
   void displayInfo() {
@@ -63,4 +58,36 @@ class Doctor extends Staff {
     json['specialization'],
     json['patientsCount'],
   );
+
+  void performCheckup(Patient patient) {
+    final now = DateTime.now();
+    final dateStr =
+        '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} '
+        '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+
+    // Update patient record
+    patient.status = 'Checked';
+    patient.medicalHistory.add('Checked by Dr. $name on $dateStr');
+
+    patientsCount += 1;
+
+    // Save patient record
+    final patientRepo = PatientRepository();
+    patientRepo.saveOrUpdate(patient);
+
+    // Save updated doctor data
+    final staffRepo = StaffRepository();
+    staffRepo.loadData(); // load existing doctors
+    final index = staffRepo.staffList.indexWhere((s) => s.id == id);
+
+    if (index >= 0) {
+      staffRepo.staffList[index] = this; // update this doctor object
+      staffRepo.saveAll(); // save to doctor.json
+    }
+
+    print('\nDr. $name performed a checkup on patient ${patient.name}.');
+    print('Updated patient status: ${patient.status}');
+    print('Total patients checked: $patientsCount');
+    patient.displayInfo();
+  }
 }

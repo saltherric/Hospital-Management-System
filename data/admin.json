@@ -1,26 +1,26 @@
 [
   {
     "type": "admin",
-    "id": "A-EAF72",
-    "name": "Eang",
-    "sex": "Female",
-    "dob": "2002-12-02T00:00:00.000",
+    "id": "A-D697A",
+    "name": "admin",
+    "sex": "Male",
+    "dob": "1999-10-20T00:00:00.000",
     "position": "AdminStaff",
-    "department": "Hr",
-    "salary": 1000.0,
-    "role": "Accountant",
-    "officeNumber": "023"
+    "department": "ICU",
+    "salary": 2000.0,
+    "role": "HROfficer",
+    "officeNumber": "23h"
   },
   {
     "type": "admin",
-    "id": "A-B029B",
-    "name": "Che",
-    "sex": "Male",
-    "dob": "2000-12-23T00:00:00.000",
+    "id": "A-2BD66",
+    "name": "Lida",
+    "sex": "Female",
+    "dob": "2004-01-23T00:00:00.000",
     "position": "AdminStaff",
-    "department": "Heart Department",
-    "salary": 3000.0,
-    "role": "HROfficer",
-    "officeNumber": "238"
+    "department": "ICU1",
+    "salary": 2000.0,
+    "role": "Accountant",
+    "officeNumber": "22H"
   }
 ]

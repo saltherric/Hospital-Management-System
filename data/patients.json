@@ -1,0 +1,93 @@
+[
+  {
+    "id": "P-252D1",
+    "name": "Tola",
+    "status": "Checked",
+    "medicalHistory": [
+      "Checked by Dr. Dara on 2025-11-10 09:45",
+      "Status updated to \"Recovering\" by Nurse Layeang on 2025-11-10 22:11",
+      "Checked by Dr. hello on 2025-11-10 22:49"
+    ]
+  },
+  {
+    "id": "P-593A2",
+    "name": "Sokha",
+    "status": "Checked",
+    "medicalHistory": [
+      "Checked by Dr. Visal on 2025-11-10 10:15",
+      "Status updated to \"Checked\" by Nurse Layeang on 2025-11-10 22:30"
+    ]
+  },
+  {
+    "id": "P-7A93B",
+    "name": "Dara",
+    "status": "Discharged",
+    "medicalHistory": [
+      "Checked by Dr. Sopheak on 2025-11-09 15:20",
+      "Status updated to \"Discharged\" by Nurse Lina on 2025-11-10 18:10"
+    ]
+  },
+  {
+    "id": "P-3F5E2",
+    "name": "Lina",
+    "status": "Critical",
+    "medicalHistory": [
+      "Checked by Dr. Dara on 2025-11-10 13:40",
+      "Status updated to \"Critical\" by Nurse Layeang on 2025-11-10 22:35"
+    ]
+  },
+  {
+    "id": "P-8C7F4",
+    "name": "Rith",
+    "status": "Recovering",
+    "medicalHistory": [
+      "Checked by Dr. Visal on 2025-11-10 11:50",
+      "Status updated to \"Recovering\" by Nurse Layeang on 2025-11-10 22:45"
+    ]
+  },
+  {
+    "id": "P-4D9B3",
+    "name": "Chenda",
+    "status": "Checked",
+    "medicalHistory": [
+      "Checked by Dr. Dara on 2025-11-10 09:30",
+      "Status updated to \"Checked\" by Nurse Layeang on 2025-11-10 21:15"
+    ]
+  },
+  {
+    "id": "P-6E1A5",
+    "name": "Vannak",
+    "status": "Recovering",
+    "medicalHistory": [
+      "Checked by Dr. Sopheak on 2025-11-10 14:25",
+      "Status updated to \"Recovering\" by Nurse Lina on 2025-11-10 22:00"
+    ]
+  },
+  {
+    "id": "P-5B8C9",
+    "name": "Nita",
+    "status": "Checked",
+    "medicalHistory": [
+      "Checked by Dr. Dara on 2025-11-10 10:10",
+      "Status updated to \"Checked\" by Nurse Layeang on 2025-11-10 22:20"
+    ]
+  },
+  {
+    "id": "P-9F2E7",
+    "name": "Sok",
+    "status": "Discharged",
+    "medicalHistory": [
+      "Checked by Dr. Visal on 2025-11-10 12:10",
+      "Status updated to \"Discharged\" by Nurse Layeang on 2025-11-10 23:00"
+    ]
+  },
+  {
+    "id": "P-7C6D1",
+    "name": "Rina",
+    "status": "Recovering",
+    "medicalHistory": [
+      "Checked by Dr. Dara on 2025-11-10 15:05",
+      "Status updated to \"Recovering\" by Nurse Lina on 2025-11-10 23:15"
+    ]
+  }
+]
