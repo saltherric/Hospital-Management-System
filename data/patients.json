@@ -1,5 +1,11 @@
 [
   {
+    "id": "P-1A2B3", 
+    "name": "Bora",
+    "status": "Waiting",
+    "medicalHistory": []
+  },
+ {
     "id": "P-252D1",
     "name": "Tola",
     "status": "Checked",
@@ -88,6 +94,22 @@
     "medicalHistory": [
       "Checked by Dr. Dara on 2025-11-10 15:05",
       "Status updated to \"Recovering\" by Nurse Lina on 2025-11-10 23:15"
+    ]
+  },
+  {
+    "id": "P-002",
+    "name": "Tola",
+    "status": "Recovering",
+    "medicalHistory": [
+      "Status updated to \"Recovering\" by Nurse Layeang on 2025-11-11 17-11:56 ."
+    ]
+  },
+  {
+    "id": "P-003",
+    "name": "Sokha",
+    "status": "Checked",
+    "medicalHistory": [
+      "Checked by Dr. Dr. Dara on 2025-11-11 17:54"
     ]
   }
 ]

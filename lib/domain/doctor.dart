@@ -61,7 +61,8 @@ class Doctor extends Staff {
 
   void performCheckup(Patient patient) {
     final now = DateTime.now();
-    final dateStr =
+    
+    final dateStr = // format String like 2025-11-11 14:35
         '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} '
         '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
 
@@ -69,6 +70,7 @@ class Doctor extends Staff {
     patient.status = 'Checked';
     patient.medicalHistory.add('Checked by Dr. $name on $dateStr');
 
+    // Increase patient's count 
     patientsCount += 1;
 
     // Save patient record

@@ -68,6 +68,7 @@ class AdminStaff extends Staff {
       throw FormatException('startTime must be "YYYY-MM-DD HH:MM');
     }
 
+    // calculate the end Time ( +30mn )
     final endDt = dateTime.add(Duration(minutes: 30));
 
     String fmt(DateTime d) {

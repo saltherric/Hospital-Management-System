@@ -8,7 +8,7 @@ class Patient {
   String status;
   List<String> medicalHistory;
 
-  Patient({
+  Patient({ 
     String? id,
     required this.name,
     this.status = 'Waiting',

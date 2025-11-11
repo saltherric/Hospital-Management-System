@@ -64,7 +64,7 @@ class Nurse extends Staff {
       '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} '
       '${now.hour}-${now.month.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')} ';
 
-    // Update patient info
+    // Update patient's status info
     patient.status = newStatus;
     patient.medicalHistory.add(
       'Status updated to "$newStatus" by Nurse $name on $dateStr.'
